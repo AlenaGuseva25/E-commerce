@@ -11,21 +11,21 @@ class Product:
 
 class Category:
     """Класс для представления категории продуктов"""
-    total_categories: int = 0
-    total_products: int = 0
+    category_count: int = 0
+    product_count: int = 0
 
-    def __init__(self, name: str, description: str, products: List[Product]):
+    def __init__(self, name: str, description: str, products: List[Product] = None):
         self.name: str = name
         self.description: str = description
         self.products: List[Product] = products if products else []
 
-        Category.total_categories += 1
-        Category.total_products += len(self.products)
+        Category.category_count += 1
+        Category.product_count += len(self.products)
 
     def add_product(self, product: Product):
         """Добавление продукт в категорию и обновляет количество товаров"""
         self.products.append(product)
-        Category.total_products += 1
+        Category.product_count += 1
 
 
 
