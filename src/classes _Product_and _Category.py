@@ -22,4 +22,12 @@ class Category:
         Category.total_categories += 1
         Category.total_products += len(self.products)
 
+    def add_product(self, product: Product):
+        """Добавление продукт в категорию и обновляет количество товаров"""
+        self.products.append(product)
+        Category.total_products += 1
+
+
+
+
 
