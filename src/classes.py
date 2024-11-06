@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Product:
     """Класс для представления продукта"""
     def __init__(self, name, description, price, quantity):
@@ -26,8 +27,3 @@ class Category:
         """Добавление продукт в категорию и обновляет количество товаров"""
         self.products.append(product)
         Category.product_count += 1
-
-
-
-
-
