@@ -2,22 +2,24 @@ from typing import List
 
 class Product:
     """Класс для представления продукта"""
-    name: str
-    description: str
-    price: float
-    quantity: int
     def __init__(self, name, description, price, quantity):
-        self.name = name
-        self.description = description
-        self.price = price
-        self.quantity = quantity
+        self.name: str = name
+        self.description: str = description
+        self.price: float = price
+        self.quantity: int = quantity
 
 
 class Category:
-    name: str
-    description: str
-    products: List[Product]
-    def __init__(self, name, description, products):
-        self.name = name
-        self.description = description
-        self.products = products
+    """Класс для представления категории продуктов"""
+    total_categories: int = 0
+    total_products: int = 0
+
+    def __init__(self, name: str, description: str, products: List[Product]):
+        self.name: str = name
+        self.description: str = description
+        self.products: List[Product] = products if products else []
+
+        Category.total_categories += 1
+        Category.total_products += len(self.products)
+
+
