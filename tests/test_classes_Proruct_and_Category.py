@@ -1,53 +1,67 @@
 from src.classes import Product, Category
+import pytest
 
 
-def test_product_initialization():
-    product = Product("Товар 1", "Описание товара 1", 100.0, 10)
-    assert product.name == "Товар 1"
-    assert product.description == "Описание товара 1"
-    assert product.price == 100.0
-    assert product.quantity == 10
+class TestProduct:
+    def test_product_initialization(self):
+        product = Product(name="Пупа", description="Лупа", price=30.0, quantity=100)
+        assert product.name == "Пупа"
+        assert product.description == "Лупа"
+        assert product.price == 30.0
+        assert product.quantity == 100
+
+    def test_price_setter_and_getter(self):
+        product = Product(name="Пупа", description="Лупа", price=30.0, quantity=100)
+        product.price = 50.0
+        assert product.price == 50.0
+
+        product.price = -10  # Это должно вызвать сообщение
+        assert product.price == 50.0  # Цена не должна измениться
+
+    def test_new_product_class_method(self):
+        product_dict = {
+            'name': 'Груша',
+            'description': 'Сочные груши',
+            'price': 25.0,
+            'quantity': 80
+        }
+        product = Product.new_product(product_dict)
+        assert product.name == "Груша"
+        assert product.description == "Сочные груши"
+        assert product.price == 25.0
+        assert product.quantity == 80
 
 
-def test_category_initialization():
-    category = Category("Категория 1", "Описание категории 1")
-    assert category.name == "Категория 1"
-    assert category.description == "Описание категории 1"
-    assert category.products == []
-    assert Category.category_count == 1
-    assert Category.product_count == 0
+class TestCategory:
+    def test_category_initialization(self):
+        category = Category(name="Фрукты", description="Свежие фрукты")
+        assert category.name == "Фрукты"
+        assert category.description == "Свежие фрукты"
+        assert category.products == ""  # Пустая категория не должна иметь продуктов
+
+    def test_add_product(self):
+        category = Category(name="Фрукты", description="Свежие фрукты")
+        product = Product(name="Яблоко", description="Свежие красные яблоки", price=30.0, quantity=100)
+        category.add_product(product)
+
+        assert len(category._Category__products) == 1  # Проверяем, что продукт добавлен
+        assert category.products == "Яблоко, 30.0 руб. Остаток: 100 шт."  # Проверяем вывод
+
+    def test_multiple_products(self):
+        category = Category(name="Фрукты", description="Свежие фрукты")
+        product1 = Product(name="Яблоко", description="Свежие красные яблоки", price=30.0, quantity=100)
+        product2 = Product(name="Груша", description="Сочные груши", price=25.0, quantity=80)
+
+        category.add_product(product1)
+        category.add_product(product2)
+
+        assert len(category._Category__products) == 2  # Проверяем, что два продукта добавлены
+        expected_output = (
+            "Яблоко, 30.0 руб. Остаток: 100 шт.\n"
+            "Груша, 25.0 руб. Остаток: 80 шт."
+        )
+        assert category.products == expected_output  # Проверяем вывод
 
 
-def test_category_with_products_initialization():
-    product1 = Product("Товар 1", "Описание товара 1", 100.0, 10)
-    product2 = Product("Товар 2", "Описание товара 2", 200.0, 5)
-    category = Category("Категория 1", "Описание категории 1", products=[product1, product2])
-
-    assert category.name == "Категория 1"
-    assert category.description == "Описание категории 1"
-    assert len(category.products) == 2
-    assert Category.category_count == 1
-    assert Category.product_count == 2
-
-
-def test_add_product():
-    category = Category("Категория 1", "Описание категории 1")
-    product = Product("Товар 1", "Описание товара 1", 100.0, 10)
-
-    category.add_product(product)
-
-    assert len(category.products) == 1
-    assert category.products[0].name == "Товар 1"
-    assert Category.product_count == 1
-
-
-def test_add_multiple_products():
-    category = Category("Категория 1", "Описание категории 1")
-    product1 = Product("Товар 1", "Описание товара 1", 100.0, 10)
-    product2 = Product("Товар 2", "Описание товара 2", 200.0, 5)
-
-    category.add_product(product1)
-    category.add_product(product2)
-
-    assert len(category.products) == 2
-    assert Category.product_count == 2
+if __name__ == "__main__":
+    pytest.main()
