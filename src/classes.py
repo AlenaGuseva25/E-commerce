@@ -13,6 +13,9 @@ class Product:
     def __str__(self):
         return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
 
+
+
+
     @property
     def price(self):
         """Геттер для получения цены продукта"""
@@ -25,6 +28,13 @@ class Product:
             print("Цена не должна быть нулевая или отрицательная")
         else:
             self.__price = value
+
+    def __add__(self, other):
+        """Общая стоимость"""
+        if isinstance(other, Product):
+            total_value = (self.price * self.quantity) + (other.price * other.quantity)
+            return total_value
+        return NotImplemented
 
     @classmethod
     def new_product(cls, product_dict: dict):
