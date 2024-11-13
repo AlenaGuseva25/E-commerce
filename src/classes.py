@@ -10,6 +10,9 @@ class Product:
         self.__price: float = price
         self.quantity: int = quantity
 
+    def __str__(self):
+        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+
     @property
     def price(self):
         """Геттер для получения цены продукта"""
@@ -56,3 +59,8 @@ class Category:
     def products(self):
         """Геттер для получения списка продуктов в категории в виде строк"""
         return "\n".join(f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт." for product in self.__products)
+
+    def __str__(self):
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity}"
+
