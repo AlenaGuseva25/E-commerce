@@ -10,6 +10,9 @@ class Product:
         self.__price: float = price
         self.quantity: int = quantity
 
+    def __str__(self):
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
     @property
     def price(self):
         """Геттер для получения цены продукта"""
@@ -23,19 +26,27 @@ class Product:
         else:
             self.__price = value
 
+    def __add__(self, other):
+        """Общая стоимость"""
+        if isinstance(other, Product):
+            total_value = (self.price * self.quantity) + (other.price * other.quantity)
+            return total_value
+        return NotImplemented
+
     @classmethod
     def new_product(cls, product_dict: dict):
         """Создает новый объект класса Product из словаря с параметрами товара"""
         return cls(
-            name=product_dict['name'],
-            description=product_dict['description'],
-            price=product_dict['price'],
-            quantity=product_dict['quantity']
+            name=product_dict["name"],
+            description=product_dict["description"],
+            price=product_dict["price"],
+            quantity=product_dict["quantity"],
         )
 
 
 class Category:
     """Класс для представления категории продуктов"""
+
     category_count: int = 0
     product_count: int = 0
 
@@ -55,4 +66,11 @@ class Category:
     @property
     def products(self):
         """Геттер для получения списка продуктов в категории в виде строк"""
-        return "\n".join(f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт." for product in self.__products)
+        return "\n".join(
+            f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
+            for product in self.__products
+        )
+
+    def __str__(self):
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity}"
