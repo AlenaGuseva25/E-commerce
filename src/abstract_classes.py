@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class BaseProduct(ABC):
     """Абстрактный базовый класс, родитель Product"""
 
@@ -28,5 +29,3 @@ class BaseProduct(ABC):
     def __add__(self, other):
         """Абстрактный метод для сложения продуктов"""
         pass
-
-

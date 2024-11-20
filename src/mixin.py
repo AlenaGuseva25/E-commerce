@@ -3,8 +3,12 @@ class LogMixin:
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        print(f"Создан объект {self.__class__.__name__} с параметрами: {args}, {kwargs}")
+        print(
+            f"Создан объект {self.__class__.__name__} с параметрами: {args}, {kwargs}"
+        )
 
     def __repr__(self):
-        return (f"{self.__class__.__name__}(name={self.name}, description={self.description}, price={self.price},"
-                f" quantity={self.quantity})")
+        return (
+            f"{self.__class__.__name__}(name={self.name}, description={self.description}, price={self.price},"
+            f" quantity={self.quantity})"
+        )

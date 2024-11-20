@@ -71,7 +71,5 @@ class TestCategory:
         assert category.products == expected_output
 
 
-
-
 if __name__ == "__main__":
     pytest.main()
