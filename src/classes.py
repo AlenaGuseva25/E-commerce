@@ -62,7 +62,8 @@ class Category:
         """Добавление продукта в категорию и обновление количества товаров"""
         if not isinstance(product, Product):
             raise TypeError(
-                f"Нельзя добавить объект {type(product).__name__}. Ожидался экземпляр Product или его наследника.")
+                f"Нельзя добавить объект {type(product).__name__}. Ожидался экземпляр Product или его наследника."
+            )
 
         self.__products.append(product)
         Category.product_count += 1
