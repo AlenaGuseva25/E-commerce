@@ -1,34 +1,22 @@
 from typing import List
 
+from src.abstract_classes import BaseProduct
+from src.mixin import LogMixin
 
-class Product:
+
+class Product(LogMixin, BaseProduct):
     """Класс для представления продукта"""
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
-        self.name: str = name
-        self.description: str = description
-        self.__price: float = price
-        self.quantity: int = quantity
+        super().__init__(name, description, price, quantity)
 
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
-    @property
-    def price(self):
-        """Геттер для получения цены продукта"""
-        return self.__price
-
-    @price.setter
-    def price(self, value: float):
-        """Сеттер для установки цены продукта с проверкой"""
-        if value <= 0:
-            print("Цена не должна быть нулевая или отрицательная")
-        else:
-            self.__price = value
 
     def __add__(self, other):
         """Общая стоимость"""
-        if isinstance(other, Product):
+        if isinstance(other, BaseProduct):
             total_value = (self.price * self.quantity) + (other.price * other.quantity)
             return total_value
         return NotImplemented
