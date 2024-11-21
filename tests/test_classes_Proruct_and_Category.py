@@ -15,8 +15,11 @@ class TestProduct:
         product.price = 50.0
         assert product.price == 50.0
 
-        product.price = -10
-        assert product.price == 50.0
+        with pytest.raises(ValueError):
+            product.price = -10
+
+        with pytest.raises(ValueError):
+            product.price = 0
 
     def test_new_product_class_method(self):
         product_dict = {
