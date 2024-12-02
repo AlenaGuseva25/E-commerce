@@ -8,6 +8,8 @@ class Product(LogMixin, BaseProduct):
     """Класс для представления продукта"""
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
+        if quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен.")
         super().__init__(name, description, price, quantity)
 
     def __str__(self):
@@ -66,3 +68,11 @@ class Category:
     def __str__(self):
         total_quantity = sum(product.quantity for product in self.__products)
         return f"{self.name}, количество продуктов: {total_quantity}"
+
+    def middle_price(self):
+        """Средний ценник товаров в категории"""
+        try:
+            middle_price = sum(product.price for product in self.__products)
+            return middle_price / len(self.__products)
+        except ZeroDivisionError:
+            return 0
