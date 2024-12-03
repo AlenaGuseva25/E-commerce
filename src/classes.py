@@ -8,8 +8,8 @@ class Product(LogMixin, BaseProduct):
     """Класс для представления продукта"""
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
-        if quantity == 0:
-            raise ValueError("Товар с нулевым количеством не может быть добавлен.")
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым или отрицательным количеством не может быть добавлен.")
         super().__init__(name, description, price, quantity)
 
     def __str__(self):
@@ -56,6 +56,7 @@ class Category:
 
         self.__products.append(product)
         Category.product_count += 1
+        print(f"Продукт '{product.name}' добавлен в категорию '{self.name}'.")
 
     @property
     def products(self):
