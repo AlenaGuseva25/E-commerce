@@ -70,6 +70,20 @@ class TestCategory:
         )
         assert category.products == expected_output
 
+    def test_middle_price(self):
+        category = Category(name="Фрукты", description="Свежие фрукты")
+        product1 = Product(
+            name="Яблоко", description="Свежие красные яблоки", price=30.0, quantity=100
+        )
+        product2 = Product(
+            name="Груша", description="Сочные груши", price=25.0, quantity=80
+        )
+
+        category.add_product(product1)
+        category.add_product(product2)
+
+        assert category.middle_price() == 27.5
+
 
 if __name__ == "__main__":
     pytest.main()
